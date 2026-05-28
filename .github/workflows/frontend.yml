@@ -37,6 +37,17 @@ jobs:
                 ls -la
                 cat sonar-project.properties
 
+      # Run Trivy Filesystem Scan
+      - name: Run Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: 'frontend'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH,MEDIUM'
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
         env:
