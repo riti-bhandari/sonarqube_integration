@@ -31,8 +31,16 @@ jobs:
       - name: Build React App
         run: npm run build
 
+      - name: Verify files
+        run: |
+                pwd
+                ls -la
+                cat sonar-project.properties
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: frontend
